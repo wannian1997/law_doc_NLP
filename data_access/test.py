@@ -9,7 +9,7 @@ print('测试正则表达式区域')
 import re
 
 regex = r"相关.法律文本"
-test_str = "测试测试相关的法律文本,相关至法律文本"
+test_str = "测试测试相关的法律文本,相关z法律文本"
 matches = re.finditer(regex, test_str, re.MULTILINE)
 for m1, m2 in enumerate(matches, start=0):
     print(m2.group())
@@ -26,8 +26,9 @@ for matchNum, match in enumerate(matches, start=0):
 
 
 # 调试区域（待调试错误）
-pa1 = '被告单位：信丰众城矿业有限公司（以下简称众城公司），统一社会信用代码：91360722MA35G1YK7R，住所地位于江西省赣州市信丰县嘉定镇水北计委办公楼09#店面，法定代表人：刘丙秀。	5信丰众城矿业有限公司兰某某非法采伐毁坏国家重点保护植物一审刑事判决书'
+pa1 = '被告单位：信丰众城矿业有限公司（以下简称众城公司），统一社会信用代码：91360722MA35G1YK7R，住所地位于江西省赣州市信丰县嘉定镇水北计委办公楼09#店面，法定代表人：刘丙秀。'
 pa2 = '附带民事诉讼原告人黑龙江省桦南重点国有林管理局'
+
 if r'被告' in pa1:
     print('1')
 print(type('公益诉讼' or '附带' or '民事公益' or '民事诉讼'))
