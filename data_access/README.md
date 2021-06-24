@@ -5,5 +5,3 @@
 03 extract_information 批量处理抽取一个文件夹中的docx文件关键信息
 
 
-提交测试
-
