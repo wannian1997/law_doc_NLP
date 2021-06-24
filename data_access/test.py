@@ -8,8 +8,8 @@ import jieba
 print('测试正则表达式区域')
 import re
 
-regex = r"相关.法律文本"
-test_str = "测试测试相关的法律文本,相关z法律文本"
+regex = r"相关.?法律文本"
+test_str = "测试测试相关的法律文本,相关z法律文本，，相关法律文本"
 matches = re.finditer(regex, test_str, re.MULTILINE)
 for m1, m2 in enumerate(matches, start=0):
     print(m2.group())
@@ -31,6 +31,7 @@ pa2 = '附带民事诉讼原告人黑龙江省桦南重点国有林管理局'
 
 if r'被告' in pa1:
     print('1')
-print(type('公益诉讼' or '附带' or '民事公益' or '民事诉讼'))
-if ('公益诉讼' or '附带' or '民事公益' or '民事诉讼') in pa2:
+txt1 = r'附带(民事)?(公益)?(诉讼)?'
+print(txt1)
+if txt1 in pa2:
     print('2')
