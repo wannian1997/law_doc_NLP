@@ -29,9 +29,8 @@ for matchNum, match in enumerate(matches, start=0):
 pa1 = '被告单位：信丰众城矿业有限公司（以下简称众城公司），统一社会信用代码：91360722MA35G1YK7R，住所地位于江西省赣州市信丰县嘉定镇水北计委办公楼09#店面，法定代表人：刘丙秀。'
 pa2 = '附带民事诉讼原告人黑龙江省桦南重点国有林管理局'
 
-if r'被告' in pa1:
-    print('1')
-txt1 = r'附带(民事)?(公益)?(诉讼)?'
-print(txt1)
-if txt1 in pa2:
-    print('2')
+text = '我爱编程T,test'  # 被匹配项
+pattern = '我爱编程'
+
+
+print('忽略大小写模式：', re.findall(pattern, text, re.IGNORECASE))
