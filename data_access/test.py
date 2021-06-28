@@ -27,10 +27,11 @@ for matchNum, match in enumerate(matches, start=0):
 
 # 调试区域（待调试错误）
 pa1 = '被告单位：信丰众城矿业有限公司（以下简称众城公司），统一社会信用代码：91360722MA35G1YK7R，住所地位于江西省赣州市信丰县嘉定镇水北计委办公楼09#店面，法定代表人：刘丙秀。'
-pa2 = '附带民事诉讼原告人黑龙江省桦南重点国有林管理局'
 
-text = '我爱编程T,test'  # 被匹配项
+
+text = '附我爱编程带民事诉讼原告人黑龙江省桦南重点国有林管理局'  # 被匹配项
 pattern = '我爱编程'
 
-
-print('忽略大小写模式：', re.findall(pattern, text, re.IGNORECASE))
+# 正则表达式匹配规则为尽可能多的匹配
+tt = r'被告[人|单]位?'
+print(re.search(tt, pa1).group())
