@@ -319,36 +319,39 @@ class TPaper:
 
 if __name__ == '__main__':
     # 批量文件句子标注存储
-    # path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
-    # path_list = os.listdir(path)
-    # sentences = []
-    # for pl in path_list:
-    #     filename_t, type_t = os.path.splitext(pl)
-    #     if type_t != '.docx':  # 过滤文件类型
-    #         continue
-    #     path_temp = os.path.join(path, pl)
-    #     paper = TPaper(path_temp)
-    #     # 存储指定范围段落至一个文件
-    #     n = 0
-    #     while n <= 7:
-    #         if n != 5:  # 过滤标签
-    #             n += 1
-    #             continue
-    #         sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
-    #         if not ('被告人' in sentence_t):
-    #             sentence_t = sentence_t.replace('\n', '')
-    #             sentence_t = sentence_t + f"{filename_t}\n"
-    #             sentences.append(sentence_t)
-    #             n += 1
-    #             continue
-    #         n += 1
-    # list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5_erro.txt")  # 将列表存储为.txt文件
+    path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
+    path_list = os.listdir(path)
+    sentences = []
+    for pl in path_list:
+        filename_t, type_t = os.path.splitext(pl)
+        if type_t != '.docx':  # 过滤文件类型
+            continue
+        path_temp = os.path.join(path, pl)
+        paper = TPaper(path_temp)
+        # 存储指定范围段落至一个文件
+        n = 0
+        while n <= 7:
+            if n != 5:  # 过滤标签
+                n += 1
+                continue
+            sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
+            sentence_t = sentence_t + f"{filename_t}\n"
+            sentences.append(sentence_t)
+            tt = r'被告[人|单]位?'
+            # if not (tt in sentence_t):
+            #     sentence_t = sentence_t.replace('\n', '')
+            #     sentence_t = sentence_t + f"{filename_t}\n"
+            #     sentences.append(sentence_t)
+            #     n += 1
+            #     continue
+            n += 1
+    list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
 
     # 单文档标注测试
-    path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\信丰众城矿业有限公司兰某某非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
-    paper = TPaper(path1)
-    dic = paper.dict_label
-    for i, k in dic.items():
-        print(f"{i}:{k}")
-    list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
-    print(paper.sentence_tag_s(5))
+    # path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\信丰众城矿业有限公司兰某某非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
+    # paper = TPaper(path1)
+    # dic = paper.dict_label
+    # for i, k in dic.items():
+    #     print(f"{i}:{k}")
+    # list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
+    # print(paper.sentence_tag_s(5))
