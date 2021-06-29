@@ -1,7 +1,7 @@
 """面向docx，单个文件等级地处理,extract_label重构"""
 import json
 import os
-
+import re
 from process_doc import paras2sentences, list2txt, read_docx
 
 
@@ -235,19 +235,19 @@ class TPaper:
             if s == 0:
                 if i == 'label00':
                     for ki in k:
-                        sentences.append(self.paras[ki] + '\t0\n')
+                        sentences.append(self.paras[ki] + '\t0')
             elif s == 1:
                 if i == 'label01':
                     for ki in k:
-                        sentences.append(self.paras[ki] + '\t1\n')
+                        sentences.append(self.paras[ki] + '\t1')
             elif s == 2:
                 if i == 'label02':
                     for ki in k:
-                        sentences.append(self.paras[ki] + '\t2\n')
+                        sentences.append(self.paras[ki] + '\t2')
             elif s == 3:
                 if i == 'label03':
                     for ki in k:
-                        sentences.append(self.paras[ki] + '\t3\n')
+                        sentences.append(self.paras[ki] + '\t3')
             elif s == 4:
                 if i == 'label04':
                     list_tt = []
@@ -255,7 +255,7 @@ class TPaper:
                         list_tt.append(self.paras[ki])
                     list_tt = paras2sentences(list_tt)  # 句子元素列表
                     for lt in list_tt:
-                        sentences.append(lt + '\t4\n')
+                        sentences.append(lt + '\t4')
             elif s == 5:
                 if i == 'label05':
                     list_tt = []
@@ -265,7 +265,7 @@ class TPaper:
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
-                            sentences.append(lt + '\t5\n')
+                            sentences.append(lt + '\t5')
                             for_flag = False
             elif s == 6:
                 if i == 'label06':
@@ -276,7 +276,7 @@ class TPaper:
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
-                            sentences.append(lt + '\t6\n')
+                            sentences.append(lt + '\t6')
                             for_flag = False
             elif s == 7:
                 if i == 'label07':
@@ -287,7 +287,7 @@ class TPaper:
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
-                            sentences.append(lt + '\t7\n')
+                            sentences.append(lt + '\t7')
                             for_flag = False
             elif s == 8:
                 if i == 'label08':
@@ -298,7 +298,7 @@ class TPaper:
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
-                            sentences.append(lt + '\t8\n')
+                            sentences.append(lt + '\t8')
                             for_flag = False
             elif s == 9:
                 if i == 'label09':
@@ -309,7 +309,7 @@ class TPaper:
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
-                            sentences.append(lt + '\t9\n')
+                            sentences.append(lt + '\t9')
                             for_flag = False
             else:
                 print('请输入正确格式的标签，例如“0”。')
@@ -318,7 +318,7 @@ class TPaper:
 
 
 if __name__ == '__main__':
-    # 批量文件句子标注存储
+    # 批量文件句子标注纠错
     path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
     path_list = os.listdir(path)
     sentences = []
@@ -336,14 +336,13 @@ if __name__ == '__main__':
                 continue
             sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
             sentence_t = sentence_t + f"{filename_t}\n"
-            sentences.append(sentence_t)
             tt = r'被告[人|单]位?'
-            # if not (tt in sentence_t):
-            #     sentence_t = sentence_t.replace('\n', '')
-            #     sentence_t = sentence_t + f"{filename_t}\n"
-            #     sentences.append(sentence_t)
-            #     n += 1
-            #     continue
+            if re.search(tt, sentence_t) is None:
+                sentence_t = sentence_t.replace('\n', '')
+                sentence_t = sentence_t + f"{filename_t}\n"
+                sentences.append(sentence_t)
+                n += 1
+                continue
             n += 1
     list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
 
