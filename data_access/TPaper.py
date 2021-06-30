@@ -1,5 +1,4 @@
 """面向docx，单个文件等级地处理,extract_label重构"""
-import json
 import os
 import re
 from process_doc import paras2sentences, list2txt, read_docx
