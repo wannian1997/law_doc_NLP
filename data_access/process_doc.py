@@ -146,7 +146,7 @@ def remove_useless(u_file_list, folder_path):
 # 传入paras，将段落元素分解成成句的元素
 def paras2sentences(paras):
     sentences_dict = enumerate(paras)
-    sentences = paras
+    sentences = paras.copy()
     list01 = []
     list02 = []
     for i, t in sentences_dict:
@@ -247,7 +247,18 @@ if __name__ == "__main__":
     # txt21(docx_path)
 
     paras = read_docx('C:\\Users\\songwannian\\Desktop\\李学荣非法采伐国家重点保护植物罪一审刑事判决书.doc')
-    print(paras)
+
+    for p in paras:
+        print(p)
+    sentences = paras2sentences(paras)
+    print('\n')
+
+    for p in paras:
+        print(p)
+
+    print('\n')
+    for se in sentences:
+        print(se)
 
     time_end = time.time()
     print('\ndoc2docx totally cost:', time_end - time_start)  # 用时
