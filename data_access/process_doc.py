@@ -246,19 +246,5 @@ if __name__ == "__main__":
     # 批量将docx文件批量转换为txt文件（按句子分开）
     # txt21(docx_path)
 
-    paras = read_docx('C:\\Users\\songwannian\\Desktop\\李学荣非法采伐国家重点保护植物罪一审刑事判决书.doc')
-
-    for p in paras:
-        print(p)
-    sentences = paras2sentences(paras)
-    print('\n')
-
-    for p in paras:
-        print(p)
-
-    print('\n')
-    for se in sentences:
-        print(se)
-
     time_end = time.time()
-    print('\ndoc2docx totally cost:', time_end - time_start)  # 用时
+    print('\ntotally time cost:', time_end - time_start)  # 用时
