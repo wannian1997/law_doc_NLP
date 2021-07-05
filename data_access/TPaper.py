@@ -48,18 +48,27 @@ class TPaper:
             self.part_people_index0 = 4
 
     def paras_label(self):
+        """2021年7月4日，拟采用检索策略"""
         # 遍历检索关键索引
-        law_index0 = 0  # 法律条文开始段落
         prosecution_organ = ''  # 公诉机关
+        prosecution_organ_index0 = 0  #
         fact_index0 = 0  # 法院认为
         adjudicatory_index0 = 0
         judge_day_index = 0  # 审判日期索引初始化
+        law_index0 = 0  # 法律条文开始段落
         for p in self.paras:
             # 提取公诉机关（检察院）
+
             if '公诉机关' in p:
                 if len(prosecution_organ) <= 0:
+                    prosecution_organ_index0 = self.paras.index(p)
                     prosecution_organ = p.replace('公诉机关', '')
-                    prosecution_organ = prosecution_organ.replace('。', '')
+                    prosecution_organ = prosecution_organ.replace('。', '')  # 公诉机关提取
+                    if len(prosecution_organ) == 0:  # 没提取到
+                        prosecution_organ = self.paras[prosecution_organ_index0 + 1]  # 默认下一句就是
+                        self.part_people_index0 += 1
+                        self.dict_label['label04'].append(prosecution_organ_index0 + 1)
+
             # 指控段和被告人末尾段索引
             if (len(prosecution_organ) > 0) and ((prosecution_organ and '指控') in p) and self.part_people_index1 == 0:
                 self.accuse_index0 = self.paras.index(p)
@@ -318,38 +327,38 @@ class TPaper:
 
 if __name__ == '__main__':
     # 批量文件句子标注纠错
-    path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
-    path_list = os.listdir(path)
-    sentences = []
-    for pl in path_list:
-        filename_t, type_t = os.path.splitext(pl)
-        if type_t != '.docx':  # 过滤文件类型
-            continue
-        path_temp = os.path.join(path, pl)
-        paper = TPaper(path_temp)
-        # 存储指定范围段落至一个文件
-        n = 0
-        while n <= 7:
-            if n != 5:  # 过滤标签
-                n += 1
-                continue
-            sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
-            sentence_t = sentence_t + f"{filename_t}\n"
-            tt = r'被告[人|单]位?'
-            if re.search(tt, sentence_t) is None:
-                sentence_t = sentence_t.replace('\n', '')
-                sentence_t = sentence_t + f"{filename_t}\n"
-                sentences.append(sentence_t)
-                n += 1
-                continue
-            n += 1
-    list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
+    # path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
+    # path_list = os.listdir(path)
+    # sentences = []
+    # for pl in path_list:
+    #     filename_t, type_t = os.path.splitext(pl)
+    #     if type_t != '.docx':  # 过滤文件类型
+    #         continue
+    #     path_temp = os.path.join(path, pl)
+    #     paper = TPaper(path_temp)
+    #     # 存储指定范围段落至一个文件
+    #     n = 0
+    #     while n <= 7:
+    #         if n != 5:  # 过滤标签
+    #             n += 1
+    #             continue
+    #         sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
+    #         sentence_t = sentence_t + f"{filename_t}\n"
+    #         tt = r'被告[人|单]位?'
+    #         if re.search(tt, sentence_t) is None:
+    #             sentence_t = sentence_t.replace('\n', '')
+    #             sentence_t = sentence_t + f"{filename_t}\n"
+    #             sentences.append(sentence_t)
+    #             n += 1
+    #             continue
+    #         n += 1
+    # list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
 
     # 单文档标注测试
-    # path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\信丰众城矿业有限公司兰某某非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
-    # paper = TPaper(path1)
-    # dic = paper.dict_label
-    # for i, k in dic.items():
-    #     print(f"{i}:{k}")
-    # list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
-    # print(paper.sentence_tag_s(5))
+    path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\吴涛非法采伐毁坏国家重点保护植物罪一审刑事判决书.docx'
+    paper = TPaper(path1)
+    dic = paper.dict_label
+    for i, k in dic.items():
+        print(f"{i}:{k}")
+    list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
+    print(paper.sentence_tag_s(0))

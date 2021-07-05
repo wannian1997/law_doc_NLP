@@ -246,5 +246,16 @@ if __name__ == "__main__":
     # 批量将docx文件批量转换为txt文件（按句子分开）
     # txt21(docx_path)
 
+    paras = read_docx('C:\\Users\\songwannian\\Desktop\\100吴传宏非法捕捞水产品一审刑事判决书.doc')
+
+    sentences = paras2sentences(paras)
+
+    for p in paras:
+        print(p)
+
+    print('\n')
+    for se in sentences:
+        print(se)
+
     time_end = time.time()
     print('\ntotally time cost:', time_end - time_start)  # 用时

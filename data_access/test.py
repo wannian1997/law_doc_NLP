@@ -1,13 +1,10 @@
-# coding=utf8
 import re
+from pyltp import SentenceSplitter
 
-# 调试区域（待调试错误）
-pa1 = '被告sdf 单位：信丰众城矿业有限公司（以下简称众城公司），统一社会信用代码：91360722MA35G1YK7R，住所地位于江西省赣州市信丰县嘉定镇水北计委办公楼09#店面，法定代表人：刘丙秀。'
+text = 'You say goodbye and I say hello.'
 
-# 正则表达式匹配规则为尽可能多的匹配
-pl = '被告人李国荣，男，1972年5月13日生，瑶族，文盲，云南省河口县人，住河口县。因涉嫌犯非法采伐、毁坏国家重点保护植物罪，于2018年2月13日被河口县公安局取保候审。'
-tt = r'被告[人|单]位?'
-t = re.search(tt, pl)
-print(t.group())
-if not re.search(tt, pl) is None:
-    print('u')
+tt = re.split('（\W+）?',text)
+print(tt)
+
+sents = SentenceSplitter.split('元芳你怎么看？我就趴窗口上看呗！')  # 分句
+print('\n'.join(sents))
