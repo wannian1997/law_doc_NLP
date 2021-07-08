@@ -1,16 +1,12 @@
 # UI运行脚本文件
+"""更新日期：2021年7月8日"""
 import sys
-import win32com.client as wc
+import os
 # PyQt5中使用的基本控件都在PyQt5.QtWidgets模块中
 from PyQt5.QtWidgets import QApplication, QMainWindow,QFileDialog,QMessageBox
-from PyQt5.QtCore import QDir
 # 导入
-from data_access.process_doc import read_docx
 from data_access.TPaper import TPaper
 from MFC import *
-
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
 class MyMainForm(QMainWindow, Ui_MainWindow):
@@ -18,68 +14,307 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         super(MyMainForm, self).__init__(parent)
         self.setupUi(self)
 
+        # 成员变量
         self.index = 0  # 显示的第一条信息的索引
+        self.sentences_len = 0
+
         # 信息栏可视化
         self.textBrowser_21.setText('程序加载成功！')
+
         # 添加登录按钮信号和槽。注意display函数不加小括号()
         self.pushButton.clicked.connect(self.openfile)  # 读取文件
-        self.pushButton_1.clicked.connect(self.distest)  # 读取文件
+        self.pushButton_1.clicked.connect(self.distest)  # 清空信息栏
+        self.pushButton_page_before.clicked.connect(self.page_before)
+        self.pushButton_page_next.clicked.connect(self.page_next)
+        self.pushButton_2.clicked.connect(self.tag0)  # 标签按钮
+        self.pushButton_3.clicked.connect(self.tag1)
+        self.pushButton_4.clicked.connect(self.tag2)
+        self.pushButton_5.clicked.connect(self.tag3)
+        self.pushButton_6.clicked.connect(self.tag4)
+        self.pushButton_7.clicked.connect(self.tag5)
+        self.pushButton_8.clicked.connect(self.tag6)
+        self.pushButton_9.clicked.connect(self.tag7)
+        self.pushButton_10.clicked.connect(self.save_sentences)
 
     def openfile(self):
-        # 单文档标注测试
-        path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\陈传福非法采伐国家重点保护植物罪一审刑事判决书.doc'
-        self.paper = TPaper(path1)
-        dic = self.paper.dict_label
-        self.textBrowser_21.setText('100吴传宏非法捕捞水产品一审刑事判决书.doc\n文件读取成功!')
+        openfile_name, t = QFileDialog.getOpenFileName(self, '选择文件', '', 'Word files(*.doc , *.docx)')  # 打开文件对话框
+        self.paper = TPaper(openfile_name)
+        self.textBrowser_21.setText('100吴传宏非法捕捞水产品一审刑事判决书.doc\n文件处理成功!')
+        # 后台处理数据
+        self.sentences_len = len(self.paper.sentences)  # 获取句子列表的长度
+
         self.info_disply10(0)
 
+
+    # 测试函数
     def distest(self):
         self.textBrowser_21.setText('')
+        print(self.checkBox_1.isChecked())
 
     def info_disply10(self, index):  # index为第一条数据的索引
         """显示从index开始的10条内容"""
         # 处理文本数据
         sentences_disply10 = []
         sentences_tag_display10 = []
+        # 索引判断
+        display_len = self.sentences_len - index  # 还要要显示的消息条数
+        if display_len > 10:
+            display_len = 10
         n = 0
-        while n < 10:
+        while n < display_len:  # 只判断display_len个句子
             tag_t = self.paper.sentences[index + n][-2]
             sentences_disply10.append(self.paper.sentences[index+n].replace(f'\t{tag_t}\n', ''))  # 删除后缀
-            sentences_tag_display10.append(tag_t)  # 获取句子标签
+            # 句子标签转换
+            if tag_t == '0':
+                sentences_tag_display10.append('文件名')
+            elif tag_t == '1':
+                sentences_tag_display10.append(' ')
+            elif tag_t == '2':
+                sentences_tag_display10.append(' ')
+            elif tag_t == '3':
+                sentences_tag_display10.append('案号')
+            elif tag_t == '4':
+                sentences_tag_display10.append(' ')
+            elif tag_t == '5':
+                sentences_tag_display10.append('被告人信息')
+            elif tag_t == '6':
+                sentences_tag_display10.append(' ')
+            elif tag_t == '7':
+                sentences_tag_display10.append(' ')
+            else:
+                sentences_tag_display10.append(' ')
             n += 1
+
         # 显示
-        self.textBrowser_1.setText(sentences_disply10[0])  # 文本信息
-        self.textBrowser_2.setText(sentences_disply10[1])
-        self.textBrowser_3.setText(sentences_disply10[2])
-        self.textBrowser_4.setText(sentences_disply10[3])
-        self.textBrowser_5.setText(sentences_disply10[4])
-        self.textBrowser_6.setText(sentences_disply10[5])
-        self.textBrowser_7.setText(sentences_disply10[6])
-        self.textBrowser_8.setText(sentences_disply10[7])
-        self.textBrowser_9.setText(sentences_disply10[8])
-        self.textBrowser_10.setText(sentences_disply10[9])
+        if display_len >= 1:
+            self.textBrowser_1.setText(sentences_disply10[0])  # 文本信息
+            self.textBrowser_11.setText(sentences_tag_display10[0])  # 标签
+            self.n1.setText(str(index))  # 序号
+        else:
+            self.textBrowser_1.setText('')  # 文本信息
+            self.textBrowser_11.setText('')  # 标签
+            self.n1.setText('')  # 序号
 
-        self.textBrowser_11.setText(sentences_tag_display10[0])  # 标签
-        self.textBrowser_12.setText(sentences_tag_display10[1])
-        self.textBrowser_13.setText(sentences_tag_display10[2])
-        self.textBrowser_14.setText(sentences_tag_display10[3])
-        self.textBrowser_15.setText(sentences_tag_display10[4])
-        self.textBrowser_16.setText(sentences_tag_display10[5])
-        self.textBrowser_17.setText(sentences_tag_display10[6])
-        self.textBrowser_18.setText(sentences_tag_display10[7])
-        self.textBrowser_19.setText(sentences_tag_display10[8])
-        self.textBrowser_20.setText(sentences_tag_display10[9])
+        if display_len >= 2:
+            self.textBrowser_2.setText(sentences_disply10[1])  # 文本信息
+            self.textBrowser_12.setText(sentences_tag_display10[1])  # 标签
+            self.n2.setText(str(index+1))  # 序号
+        else:
+            self.textBrowser_2.setText('')  # 文本信息
+            self.textBrowser_12.setText('')  # 标签
+            self.n2.setText('')  # 序号
+        if display_len >= 3:
+            self.textBrowser_3.setText(sentences_disply10[2])  # 文本信息
+            self.textBrowser_13.setText(sentences_tag_display10[2])  # 标签
+            self.n3.setText(str(index+2))  # 序号
+        else:
+            self.textBrowser_3.setText('')  # 文本信息
+            self.textBrowser_13.setText('')  # 标签
+            self.n3.setText('')  # 序号
 
-        self.n1.setText(str(index))  # 序号
-        self.n2.setText(str(index+1))
-        self.n3.setText(str(index+2))
-        self.n4.setText(str(index+3))
-        self.n5.setText(str(index+4))
-        self.n6.setText(str(index+5))
-        self.n7.setText(str(index+6))
-        self.n8.setText(str(index+7))
-        self.n9.setText(str(index+8))
-        self.n10.setText(str(index+9))
+        if display_len >=4:
+            self.textBrowser_4.setText(sentences_disply10[3])  # 文本信息
+            self.textBrowser_14.setText(sentences_tag_display10[3])  # 标签
+            self.n4.setText(str(index+3))  # 序号
+        else:
+            self.textBrowser_4.setText('')  # 文本信息
+            self.textBrowser_14.setText('')  # 标签
+            self.n4.setText('')  # 序号
+
+        if display_len >=5:
+            self.textBrowser_5.setText(sentences_disply10[4])  # 文本信息
+            self.textBrowser_15.setText(sentences_tag_display10[4])  # 标签
+            self.n5.setText(str(index+4))  # 序号
+        else:
+            self.textBrowser_5.setText('')  # 文本信息
+            self.textBrowser_15.setText('')  # 标签
+            self.n5.setText('')  # 序号
+
+        if display_len >=6:
+            self.textBrowser_6.setText(sentences_disply10[5])  # 文本信息
+            self.textBrowser_16.setText(sentences_tag_display10[5])  # 标签
+            self.n6.setText(str(index+5))  # 序号
+        else:
+            self.textBrowser_6.setText('')  # 文本信息
+            self.textBrowser_16.setText('')  # 标签
+            self.n6.setText('')  # 序号
+
+        if display_len >=7:
+            self.textBrowser_7.setText(sentences_disply10[6])  # 文本信息
+            self.textBrowser_17.setText(sentences_tag_display10[6])  # 标签
+            self.n7.setText(str(index+6))  # 序号
+        else:
+            self.textBrowser_7.setText('')  # 文本信息
+            self.textBrowser_17.setText('')  # 标签
+            self.n7.setText('')  # 序号
+
+        if display_len >=8:
+            self.textBrowser_8.setText(sentences_disply10[7])  # 文本信息
+            self.textBrowser_18.setText(sentences_tag_display10[7])  # 标签
+            self.n8.setText(str(index+7))  # 序号
+        else:
+            self.textBrowser_8.setText('')  # 文本信息
+            self.textBrowser_18.setText('')  # 标签
+            self.n8.setText('')  # 序号
+
+        if display_len >=9:
+            self.textBrowser_9.setText(sentences_disply10[8])  # 文本信息
+            self.textBrowser_19.setText(sentences_tag_display10[8])  # 标签
+            self.n9.setText(str(index+8))  # 序号
+        else:
+            self.textBrowser_9.setText('')  # 文本信息
+            self.textBrowser_19.setText('')  # 标签
+            self.n9.setText('')  # 序号
+
+        if display_len >= 10:
+            self.textBrowser_10.setText(sentences_disply10[9])  # 文本信息
+            self.textBrowser_20.setText(sentences_tag_display10[9])  # 标签
+            self.n10.setText(str(index+9))  # 序号
+        else:
+            self.textBrowser_10.setText('')  # 文本信息
+            self.textBrowser_20.setText('')  # 标签
+            self.n10.setText('')  # 序号
+
+    def page_before(self):
+        self.index -= 10
+        if self.index < 0:
+            self.textBrowser_21.setText('已经到文章最前面了！\n往后看看吧。')
+            self.index += 10
+        else:
+            self.info_disply10(self.index)
+        print(self.index)
+
+    def page_next(self):
+        self.index += 10
+        if self.index > len(self.paper.sentences):
+            self.textBrowser_21.setText('这是最后一页内容！\n别忘了保存！')
+            self.index -= 10
+        else:
+            self.info_disply10(self.index)
+        print(self.index)
+
+    def tag_t(self, tag_text, tag_number):
+        """修改标签  tag_text输入标签内容文本,tag_number输入标签数字"""
+        # 第一条信息
+        if self.checkBox_1.isChecked():  # 必须选中才修改
+            self.textBrowser_11.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index] = self.paper.sentences[self.index].replace(
+                f'\t{self.paper.sentences[self.index][-2]}\n', f'\t{tag_number}\n')
+        # 第二条信息
+        if self.checkBox_2.isChecked():  # 必须选中才修改
+            self.textBrowser_12.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 1] = self.paper.sentences[self.index + 1].replace(
+                f'\t{self.paper.sentences[self.index + 1][-2]}\n', f'\t{tag_number}\n')
+        # 第三条信息
+        if self.checkBox_3.isChecked():  # 必须选中才修改
+            self.textBrowser_13.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 2] = self.paper.sentences[self.index + 2].replace(
+                f'\t{self.paper.sentences[self.index + 2][-2]}\n', f'\t{tag_number}\n')
+        # 第四条信息
+        if self.checkBox_4.isChecked():  # 必须选中才修改
+            self.textBrowser_14.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 3] = self.paper.sentences[self.index + 3].replace(
+                f'\t{self.paper.sentences[self.index + 3][-2]}\n', f'\t{tag_number}\n')
+        # 第五条信息
+        if self.checkBox_5.isChecked():  # 必须选中才修改
+            self.textBrowser_15.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 4] = self.paper.sentences[self.index + 4].replace(
+                f'\t{self.paper.sentences[self.index + 4][-2]}\n', f'\t{tag_number}\n')
+
+        if self.checkBox_6.isChecked():  # 必须选中才修改
+            self.textBrowser_16.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 5] = self.paper.sentences[self.index + 5].replace(
+                f'\t{self.paper.sentences[self.index + 5][-2]}\n', f'\t{tag_number}\n')
+
+        if self.checkBox_7.isChecked():  # 必须选中才修改
+            self.textBrowser_17.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 6] = self.paper.sentences[self.index + 6].replace(
+                f'\t{self.paper.sentences[self.index + 6][-2]}\n', f'\t{tag_number}\n')
+
+        if self.checkBox_8.isChecked():  # 必须选中才修改
+            self.textBrowser_18.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 7] = self.paper.sentences[self.index + 7].replace(
+                f'\t{self.paper.sentences[self.index + 7][-2]}\n', f'\t{tag_number}\n')
+
+        if self.checkBox_9.isChecked():  # 必须选中才修改
+            self.textBrowser_19.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 8] = self.paper.sentences[self.index + 8].replace(
+                f'\t{self.paper.sentences[self.index + 8][-2]}\n', f'\t{tag_number}\n')
+
+        if self.checkBox_10.isChecked():  # 必须选中才修改
+            self.textBrowser_20.setText(tag_text)  # 界面更新
+            self.paper.sentences[self.index + 9] = self.paper.sentences[self.index + 9].replace(
+                f'\t{self.paper.sentences[self.index + 9][-2]}\n', f'\t{tag_number}\n')
+
+        # 刷新复选按钮状态
+        self.checkBox_1.setChecked(False)  # 修改后就取消选中
+        self.checkBox_2.setChecked(False)
+        self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+        self.checkBox_6.setChecked(False)
+        self.checkBox_7.setChecked(False)
+        self.checkBox_8.setChecked(False)
+        self.checkBox_9.setChecked(False)
+        self.checkBox_10.setChecked(False)
+        # 后台监视
+        n = 0
+        while n < 10:
+            print(self.paper.sentences[self.index + n].replace('\n', ''))
+            n += 1
+
+    def tag0(self):
+        """案号"""
+        self.tag_t('案号', '3')
+        self.textBrowser_21.setText('案号标注成功')
+
+    def tag1(self):
+        """被告人信息"""
+        self.tag_t('被告人信息', '3')
+        self.textBrowser_21.setText('被告人信息标注成功')
+
+    def tag2(self):
+        """司法鉴定"""
+        self.tag_t('司法鉴定', '3')
+        self.textBrowser_21.setText('司法鉴定标注成功')
+
+    def tag3(self):
+        """案由"""
+        self.tag_t('案由', '3')
+        self.textBrowser_21.setText('案由标注成功')
+
+    def tag4(self):
+        """影响判决的因素"""
+        self.tag_t('影响判决的因素', '3')
+        self.textBrowser_21.setText('影响判决的因素标注成功')
+
+    def tag5(self):
+        """法律依据"""
+        self.tag_t('法律依据', '3')
+        self.textBrowser_21.setText('法律依据标注成功')
+
+    def tag6(self):
+        """判决结果"""
+        self.tag_t('判决结果', '3')
+        self.textBrowser_21.setText('判决结果标注成功')
+
+    def tag7(self):
+        """清除标注"""
+        self.tag_t(' ', '0')
+        self.textBrowser_21.setText('清除标注成功')
+
+    def save_sentences(self):
+        """保存标注文件为txt文件"""
+        url = self.paper.sentences[0].replace('\t0\n', '')  # 解析word文件路径
+        (filter, filename) = os.path.split(url)  # 文件夹路径和文件名
+        (name, ext) = os.path.splitext(filename)   # 文件名（去扩展名）和扩展名
+
+        path = os.path.join(filter, name+'.txt')  # 生成txt文件名
+        file = open(path, 'w', encoding="utf-8")
+        for l in self.paper.sentences:
+            file.write(l)
+        file.close()
+        self.textBrowser_21.setText(f"{path}\n文件存储成功")
 
 
 if __name__ == '__main__':
