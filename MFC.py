@@ -227,7 +227,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "人工の智能标注"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "人工の智能标注（备胎计划）"))
         self.pushButton.setText(_translate("MainWindow", "读取文件"))
         self.label.setText(_translate("MainWindow", "信息提示栏："))
         self.pushButton_1.setText(_translate("MainWindow", "清空"))

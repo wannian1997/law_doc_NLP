@@ -2,6 +2,7 @@
 """更新日期：2021年7月8日"""
 import sys
 import os
+import time
 # PyQt5中使用的基本控件都在PyQt5.QtWidgets模块中
 from PyQt5.QtWidgets import QApplication, QMainWindow,QFileDialog,QMessageBox
 # 导入
@@ -37,14 +38,17 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.pushButton_10.clicked.connect(self.save_sentences)
 
     def openfile(self):
-        openfile_name, t = QFileDialog.getOpenFileName(self, '选择文件', '', 'Word files(*.doc , *.docx)')  # 打开文件对话框
-        self.paper = TPaper(openfile_name)
-        self.textBrowser_21.setText('100吴传宏非法捕捞水产品一审刑事判决书.doc\n文件处理成功!')
-        # 后台处理数据
-        self.sentences_len = len(self.paper.sentences)  # 获取句子列表的长度
-
-        self.info_disply10(0)
-
+        time_start = time.time()
+        openfile_name, t = QFileDialog.getOpenFileName(self, '选择文件', '', 'Word files(*.doc , *.docx, *.txt)')  # 打开文件对话框
+        if os.path.exists(openfile_name):
+            self.paper = TPaper(openfile_name)
+            time_end = time.time()
+            self.textBrowser_21.setText(f'100吴传宏非法捕捞水产品一审刑事判决书.doc\n文件处理成功!\ncost:{time_end - time_start}')
+            # 后台处理数据
+            self.sentences_len = len(self.paper.sentences)  # 获取句子列表的长度
+            self.info_disply10(0)
+        else:
+            self.textBrowser_21.setText('已取消')
 
     # 测试函数
     def distest(self):
@@ -64,28 +68,34 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         while n < display_len:  # 只判断display_len个句子
             tag_t = self.paper.sentences[index + n][-2]
             sentences_disply10.append(self.paper.sentences[index+n].replace(f'\t{tag_t}\n', ''))  # 删除后缀
-            # 句子标签转换
+            # 句子标签转换显示
             if tag_t == '0':
-                sentences_tag_display10.append('文件名')
+                sentences_tag_display10.append('')
             elif tag_t == '1':
-                sentences_tag_display10.append(' ')
+                sentences_tag_display10.append('')
             elif tag_t == '2':
-                sentences_tag_display10.append(' ')
+                sentences_tag_display10.append('')
             elif tag_t == '3':
                 sentences_tag_display10.append('案号')
             elif tag_t == '4':
-                sentences_tag_display10.append(' ')
+                sentences_tag_display10.append('')
             elif tag_t == '5':
                 sentences_tag_display10.append('被告人信息')
             elif tag_t == '6':
-                sentences_tag_display10.append(' ')
+                sentences_tag_display10.append('')
             elif tag_t == '7':
-                sentences_tag_display10.append(' ')
+                sentences_tag_display10.append('')
+            elif tag_t == '8':
+                sentences_tag_display10.append('')
+            elif tag_t == '9':
+                sentences_tag_display10.append('法律依据')
+            elif tag_t == 'T':  # 清除标记
+                sentences_tag_display10.append('')
             else:
                 sentences_tag_display10.append(' ')
             n += 1
 
-        # 显示
+        # 十条信息显示
         if display_len >= 1:
             self.textBrowser_1.setText(sentences_disply10[0])  # 文本信息
             self.textBrowser_11.setText(sentences_tag_display10[0])  # 标签
@@ -139,7 +149,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
             self.textBrowser_16.setText('')  # 标签
             self.n6.setText('')  # 序号
 
-        if display_len >=7:
+        if display_len >= 7:
             self.textBrowser_7.setText(sentences_disply10[6])  # 文本信息
             self.textBrowser_17.setText(sentences_tag_display10[6])  # 标签
             self.n7.setText(str(index+6))  # 序号
@@ -265,43 +275,60 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def tag0(self):
         """案号"""
-        self.tag_t('案号', '3')
+        self.tag_t('案号', 'A')
         self.textBrowser_21.setText('案号标注成功')
 
     def tag1(self):
         """被告人信息"""
-        self.tag_t('被告人信息', '3')
+        self.tag_t('被告人信息', 'B')
         self.textBrowser_21.setText('被告人信息标注成功')
 
     def tag2(self):
         """司法鉴定"""
-        self.tag_t('司法鉴定', '3')
+        self.tag_t('司法鉴定', 'C')
         self.textBrowser_21.setText('司法鉴定标注成功')
 
     def tag3(self):
         """案由"""
-        self.tag_t('案由', '3')
+        self.tag_t('案由', 'D')
         self.textBrowser_21.setText('案由标注成功')
 
     def tag4(self):
         """影响判决的因素"""
-        self.tag_t('影响判决的因素', '3')
+        self.tag_t('影响判决的因素', 'E')
         self.textBrowser_21.setText('影响判决的因素标注成功')
 
     def tag5(self):
         """法律依据"""
-        self.tag_t('法律依据', '3')
+        self.tag_t('法律依据', 'F')
         self.textBrowser_21.setText('法律依据标注成功')
 
     def tag6(self):
         """判决结果"""
-        self.tag_t('判决结果', '3')
+        self.tag_t('判决结果', 'G')
         self.textBrowser_21.setText('判决结果标注成功')
 
     def tag7(self):
         """清除标注"""
-        self.tag_t(' ', '0')
+        self.tag_t(' ', 'T')
         self.textBrowser_21.setText('清除标注成功')
+
+    def tag_map(self, sentence):
+        """标签映射 三个变量均为字符型"""
+        sentence_t = ''  # 初始化
+        list_not_map = ['T']  # 不映射标签(避免不必要的运算)
+        for lm in list_not_map:
+            if sentence[-2] == lm:
+                return sentence
+
+        dict_map = {'0': 'T', '1': 'T', '2': 'T', '4': 'T', '6': 'T', '7': 'T', '8': 'T',
+            '3': '0', '5': '1', '9': '5',
+                    'A': '0', 'B': '1', 'C': '2', 'D': '3',  'E': '4',  'F': '5', 'G': '6'}  # 映射字典
+        tag0 = sentence[-2]  # 原始标签
+        tag1 = dict_map[tag0]  # 映射标签
+        if sentence[-2] == tag0:
+            sentence_t = sentence.replace(f'\t{tag0}\n', f'\t{tag1}\n')
+        return sentence_t
 
     def save_sentences(self):
         """保存标注文件为txt文件"""
@@ -311,8 +338,11 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
         path = os.path.join(filter, name+'.txt')  # 生成txt文件名
         file = open(path, 'w', encoding="utf-8")
+        # 句子保存（标签转换）
         for l in self.paper.sentences:
-            file.write(l)
+            lt = self.tag_map(l)  # 标签映射
+            if lt[-2] != 'T':
+                file.write(lt)
         file.close()
         self.textBrowser_21.setText(f"{path}\n文件存储成功")
 
