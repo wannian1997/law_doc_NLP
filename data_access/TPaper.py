@@ -1,7 +1,7 @@
 """面向docx，单个文件等级地处理,extract_label重构"""
 import os
 import re
-from process_doc import paras2sentences, list2txt, read_docx
+from data_access.process_doc import paras2sentences_ltp, list2txt, read_docx
 
 
 class TPaper:
@@ -108,6 +108,8 @@ class TPaper:
                 pi += 1
             self.dict_label['label06'] = list_t
         # 审判人员信息
+        list7=[]
+        list8=[]
         if judge_day_index != 0:
             ain1 = judge_day_index  # 向前检索
             while ain1 >= judge_day_index - 7:
@@ -143,29 +145,32 @@ class TPaper:
             while pi <= adjudicatory_index1:
                 list_t.append(pi)
                 pi += 1
-            self.dict_label['label08'] = list_t
+            list8 = list_t
         else:
             adjudicatory_index1 = law_index0 - 1
             if adjudicatory_index0 == adjudicatory_index1:
-                self.dict_label['label08'] = [adjudicatory_index0]
+                list8 = [adjudicatory_index0]
             else:
                 list_t = []
                 pi = adjudicatory_index0
                 while pi <= adjudicatory_index1:
                     list_t.append(pi)
                     pi += 1
-                self.dict_label['label08'] = list_t
+                list8 = list_t
         # 法院认定事实和判决
         fact_index1 = adjudicatory_index0 - 1  # 依赖于审判人员段落
         if fact_index0 == fact_index1:
-            self.dict_label['label07'] = [fact_index0]
+            list7 = [fact_index0]
         else:
             list_t = []
             pi = fact_index0
             while pi <= fact_index1:
                 list_t.append(pi)
                 pi += 1
-            self.dict_label['label07'] = list_t
+            list7 = list_t
+        # 解决label07和label08的顺序问题
+        self.dict_label['label07'] = list7
+        self.dict_label['label08'] = list8
         # 相关法律条文
         list_t = []
         if law_index0 > 0:
@@ -175,8 +180,10 @@ class TPaper:
                 pi += 1
             self.dict_label['label09'] = list_t
 
+        test_data_0 = sorted(self.dict_label.keys())
+
     def sentences_tag(self):
-        """传入段落标签字典自动句子标记,返回类型为列表"""
+        """传入段落标签字典自动句子标记,返回类型为列表，在此函数进行第一步规则"""
         dict_label = self.dict_label
         sentences = []
         for i, k in dict_label.items():  # i是标签，k是段落列表
@@ -191,47 +198,55 @@ class TPaper:
                     sentences.append(self.paras[ki] + '\t2\n')
             elif i == 'label03':
                 for ki in k:
-                    sentences.append(self.paras[ki] + '\t3\n')
+                    sentences.append(self.paras[ki] + '\tA\n')
             elif i == 'label04':  # 还需要实现将段落分为句子
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
                     sentences.append(lt + '\t4\n')
             elif i == 'label05':
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
-                    sentences.append(lt + '\t5\n')
+                    sentences.append(lt + '\tB\n')
             elif i == 'label06':
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
-                    sentences.append(lt + '\t6\n')
+                    if '经鉴定' in lt:
+                        sentences.append(lt + '\tC\n')  # 标注细化，司法鉴定（2021年7月9日）
+                    else:
+                        sentences.append(lt + '\t6\n')
             elif i == 'label07':
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
-                    sentences.append(lt + '\t7\n')
+                    if '本院认为' in lt:
+                        sentences.append(lt + '\tD\n')  # 标注细化，案由
+                    elif '《中华人民共和国刑法》' in lt:
+                        sentences.append(lt + '\tF\n')  # 标注细化，法律依据
+                    else:
+                        sentences.append(lt + '\tG\n')
             elif i == 'label08':
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
                     sentences.append(lt + '\t8\n')
             elif i == 'label09':
                 list_tt = []
                 for ki in k:
                     list_tt.append(self.paras[ki])
-                list_tt = paras2sentences(list_tt)  # 句子元素列表
+                list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                 for lt in list_tt:
                     sentences.append(lt + '\t9\n')
         return sentences
@@ -261,7 +276,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for lt in list_tt:
                         sentences.append(lt + '\t4')
             elif s == 5:
@@ -269,7 +284,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
@@ -280,7 +295,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
@@ -291,7 +306,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
@@ -302,7 +317,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
@@ -313,7 +328,7 @@ class TPaper:
                     list_tt = []
                     for ki in k:
                         list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences(list_tt)  # 句子元素列表
+                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
                     for_flag = True  # 只存储第一句
                     for lt in list_tt:
                         while for_flag:
@@ -326,39 +341,13 @@ class TPaper:
 
 
 if __name__ == '__main__':
-    # 批量文件句子标注纠错
-    # path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
-    # path_list = os.listdir(path)
-    # sentences = []
-    # for pl in path_list:
-    #     filename_t, type_t = os.path.splitext(pl)
-    #     if type_t != '.docx':  # 过滤文件类型
-    #         continue
-    #     path_temp = os.path.join(path, pl)
-    #     paper = TPaper(path_temp)
-    #     # 存储指定范围段落至一个文件
-    #     n = 0
-    #     while n <= 7:
-    #         if n != 5:  # 过滤标签
-    #             n += 1
-    #             continue
-    #         sentence_t = paper.sentence_tag_s(n)  # 句子标注(只标注一个标签的第一句话)
-    #         sentence_t = sentence_t + f"{filename_t}\n"
-    #         tt = r'被告[人|单]位?'
-    #         if re.search(tt, sentence_t) is None:
-    #             sentence_t = sentence_t.replace('\n', '')
-    #             sentence_t = sentence_t + f"{filename_t}\n"
-    #             sentences.append(sentence_t)
-    #             n += 1
-    #             continue
-    #         n += 1
-    # list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
-
     # 单文档标注测试
-    path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\吴涛非法采伐毁坏国家重点保护植物罪一审刑事判决书.docx'
+    path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\陈传福非法采伐国家重点保护植物罪一审刑事判决书.doc'
     paper = TPaper(path1)
     dic = paper.dict_label
     for i, k in dic.items():
         print(f"{i}:{k}")
     list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
     print(paper.sentence_tag_s(0))
+    for p in paper.sentences:
+        print(p)

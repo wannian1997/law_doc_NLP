@@ -1,7 +1,8 @@
 import os
 import re
+import random
 from TPaper import *
-from process_doc import paras2sentences, list2txt, read_docx
+from process_doc import paras2sentences_ltp, list2txt, read_docx
 
 
 def papers_check(filepath):
@@ -32,21 +33,3 @@ def papers_check(filepath):
     list2txt(sentences, "C:\\Users\\songwannian\\Desktop\\5.txt")  # 将列表存储为.txt文件
 
 
-def paper_check(path):
-    """单文档标注混合纠错"""
-    paper = TPaper(path)  # 实例化
-    dic = paper.dict_label
-    for i, k in dic.items():
-        print(f"{i}:{k}")
-        for kt in k:
-            print(kt, paper.paras[kt])
-    list2txt(paper.sentence_tag_s(5), 'C:\\Users\\songwannian\\Desktop\\1.txt')  # 将列表存储为.txt文件
-    print(paper.sentence_tag_s(0))
-
-
-if __name__ == '__main__':
-    # filter_path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
-    # papers_check(filter_path)
-
-    path1 = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx\\宋元坤非法采伐国家重点保护植物罪一审刑事判决书.docx'
-    paper_check(path1)

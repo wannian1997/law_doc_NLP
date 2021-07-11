@@ -1,10 +1,10 @@
 # coding:utf-8
 """批量处理doc文件，能批量输出docx文件"""
 import os
-import tkinter.messagebox
 import win32com.client as wc
 import time
 import docx
+from pyltp import SentenceSplitter
 
 
 # 创建子文件夹
@@ -158,6 +158,7 @@ def paras2sentences(paras):
                 x.pop()
             list01.append(i)  # 存储索引
             list02.append(x)
+
     ki = len(list01) - 1
     while ki >= 0:
         i = list01[ki]
@@ -170,9 +171,22 @@ def paras2sentences(paras):
     return sentences
 
 
+# 用pyltp进行分句
+def paras2sentences_ltp(paras):
+    sentences = []
+    for pa in paras:
+        sents = SentenceSplitter.split(pa)  # 分句
+        if len(sents[-1]) < 2:  # 过滤
+            sents[-2] = sents[-2] + sents[-1]
+            del sents[-1]
+        for se in sents:
+            sentences.append(se)
+    return sentences
+
+
 # 将列表存储为txt格式文件
 def list2txt(list, path):
-    file = open(path, 'w',encoding="utf-8")
+    file = open(path, 'w', encoding="utf-8")
     for l in list:
         file.write(l)
     file.close()
@@ -197,7 +211,7 @@ def txt2(docx_path):
 
 # 批量将docx文件批量转换为1个txt文件（按句子分开）
 def txt21(docx_path):
-    txt_path_temp = "C:\\Users\\songwannian\\Desktop\\2.txt"
+    txt_path_temp = "C:\\Users\\songwannian\\Desktop\\txt.txt"
     f = open(txt_path_temp, "wt", encoding='utf-8')
     file_list = os.listdir(docx_path)
     for fl in file_list:
@@ -243,19 +257,6 @@ if __name__ == "__main__":
     # print(nk)
     # # 删除无用文件
     # remove_useless(m_list, os.path.join(docx_path))
-    # 批量将docx文件批量转换为txt文件（按句子分开）
-    # txt21(docx_path)
-
-    paras = read_docx('C:\\Users\\songwannian\\Desktop\\100吴传宏非法捕捞水产品一审刑事判决书.doc')
-
-    sentences = paras2sentences(paras)
-
-    for p in paras:
-        print(p)
-
-    print('\n')
-    for se in sentences:
-        print(se)
 
     time_end = time.time()
     print('\ntotally time cost:', time_end - time_start)  # 用时

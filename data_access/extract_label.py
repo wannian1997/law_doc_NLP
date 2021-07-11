@@ -2,7 +2,7 @@
 # 程序实现：段落标注
 import json
 import os
-from process_doc import paras2sentences, list2txt,read_docx
+from process_doc import paras2sentences_ltp, list2txt,read_docx
 
 
 # 传入文件段落和案件名（文件名），输出字典
@@ -186,42 +186,42 @@ def sentence_tag(dict_label):
             if isinstance(k, str):  # 判断数据格式
                 sentences.append(k + '\t4\n')
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentences.append(ki + '\t4\n')
         elif i == 'label05':
             if isinstance(k, str):  # 判断数据格式
                 sentences.append(k + '\t5\n')
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentences.append(ki + '\t5\n')
         elif i == 'label06':
             if isinstance(k, str):
                 sentences.append(k + '\t6\n')
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentences.append(ki + '\t6\n')
         elif i == 'label07':
             if isinstance(k, str):
                 sentence71 = k + '\t7\n'
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentence72.append(ki + '\t7\n')
         elif i == 'label08':
             if isinstance(k, str):
                 sentence81 = k + '\t8\n'
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentence82.append(ki + '\t8\n')
         elif i == 'label09':
             if isinstance(k, str):
                 sentence92 = k + '\t9\n'
             elif isinstance(k, list):
-                k = paras2sentences(k)
+                k = paras2sentences_ltp(k)
                 for ki in k:
                     sentence92.append(ki + '\t9\n')
     if len(sentence72) > 0:
@@ -263,7 +263,7 @@ def sentence_tag_s(dict_label, s):
             if i == 'label05':
                 if isinstance(k, str):  # 判断数据格式
                     k_t = [k]
-                    k_t = paras2sentences(k_t)
+                    k_t = paras2sentences_ltp(k_t)
                     nk = 0  # 只存储第一句
                     for ki in k_t:
                         if nk == 1:
@@ -271,7 +271,7 @@ def sentence_tag_s(dict_label, s):
                         sentences.append(ki + '\t5\n')
                         nk += 1
                 elif isinstance(k, list):
-                    k = paras2sentences(k)
+                    k = paras2sentences_ltp(k)
                     nk = 0  # 只存储第一句
                     for ki in k:
                         if nk == 1:
@@ -283,7 +283,7 @@ def sentence_tag_s(dict_label, s):
                 if isinstance(k, str):
                     sentences.append(k + '\t6\n')
                 elif isinstance(k, list):
-                    k = paras2sentences(k)
+                    k = paras2sentences_ltp(k)
                     nk = 0  # 只存储第一句
                     for ki in k:
                         if nk == 1:
@@ -295,7 +295,7 @@ def sentence_tag_s(dict_label, s):
                 if isinstance(k, str):
                     sentence71 = k + '\t7\n'
                 elif isinstance(k, list):
-                    k = paras2sentences(k)
+                    k = paras2sentences_ltp(k)
                     nk = 0  # 只存储第一句
                     for ki in k:
                         if nk == 1:
@@ -307,7 +307,7 @@ def sentence_tag_s(dict_label, s):
                 if isinstance(k, str):
                     sentence81 = k + '\t8\n'
                 elif isinstance(k, list):
-                    k = paras2sentences(k)
+                    k = paras2sentences_ltp(k)
                     nk = 0  # 只存储第一句
                     for ki in k:
                         if nk == 1:
@@ -319,7 +319,7 @@ def sentence_tag_s(dict_label, s):
                 if isinstance(k, str):
                     sentence92 = k + '\t9\n'
                 elif isinstance(k, list):
-                    k = paras2sentences(k)
+                    k = paras2sentences_ltp(k)
                     nk = 0  # 只存储第一句
                     for ki in k:
                         if nk == 1:
