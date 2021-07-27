@@ -123,7 +123,7 @@ def dict2json(info_dict, casename, savefile_load):
 
 if __name__ == "__main__":
     # 文件路径
-    folder_path0 = "E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)"  # doc文件所在文件夹路径
+    folder_path0 = r"E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)"  # doc文件所在文件夹路径
     docx_path = os.path.join(folder_path0, 'docx')  # docx文件的文件夹
     json_path = os.path.join(folder_path0, 'json')  # json文件的文件夹
     docx_name_list = os.listdir(docx_path)  # 读取docx文件夹下的文件名列表（带后缀）

@@ -443,7 +443,7 @@ if __name__ == '__main__':
     #     list2txt(sentences, os.path.join(txt_path, name[0] + '.txt'))  # 将列表存储为.txt文件
 
     # 批量文件句子标注存储
-    path = 'E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)\\docx'
+    path = r"E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)"
     path_list = os.listdir(path)
     sentences = []
     for pl in path_list:

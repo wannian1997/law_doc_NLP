@@ -19,6 +19,7 @@ def doc2docx_1(doc_path):
     # 打开word并设置
     word = wc.Dispatch("Word.Application")
     word.Visible = 0  # 1程序可见，0不可见
+    print(doc_path)
     doc = word.Documents.Open(doc_path)
     docx_save_path = doc_path + 'x'
     doc.SaveAs(docx_save_path, 12, False, "", True, "", False, False, False, False)  # 转换后的文件,12代表转换后为docx文件
@@ -179,8 +180,44 @@ def paras2sentences_ltp(paras):
         if len(sents[-1]) < 2:  # 过滤
             sents[-2] = sents[-2] + sents[-1]
             del sents[-1]
+
         for se in sents:
             sentences.append(se)
+        # index = []
+        # for s in sentences:
+        #     if (s[0] == '(') or (s[0] == '（'):
+        #         if not ((s[-1] == ')') or (s[-1] == '）')):
+        #             index.append(sentences.index(s))
+        #     if (s[-1] == ')') or (s[-1] == '）'):
+        #         if not (s[0] == '(') or (s[0] == '（'):
+        #             index.append(sentences.index(s))
+        #
+        # tl_flag = 0
+        # index0 = 0
+        # str_t=''
+        # step = 0
+        # for tl in index:
+        #     if tl_flag == 0:
+        #         index0 = tl - step
+        #         tl_flag = 1
+        #     elif tl_flag == 1:
+        #         index1 = tl - step
+        #
+        #         if index1 - index0 > 1:
+        #             index0 += 1
+        #             # 获取
+        #             while index0 < index1:
+        #                 str_t = str_t + sentences[index0]
+        #                 index0 += 1
+        #             index0 = tl - step
+        #             #  删除
+        #             while index0 < index1:
+        #                 del sentences[index0]
+        #                 index0 += 1
+        #             sentences[index[tl] - step] = str_t
+        #         tl_flag = 0
+        #         step = step + index1 - index0
+
     return sentences
 
 

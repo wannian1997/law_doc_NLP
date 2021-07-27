@@ -1,7 +1,7 @@
 # coding:utf-8
 from pyhanlp import *
 
-print(HanLP.segment('你好，NLP'))
+print(HanLP.segment('公诉机关广西壮族自治区西林县人民检察院'))
 
 
 # 标注

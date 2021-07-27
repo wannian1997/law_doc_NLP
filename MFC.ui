@@ -6,735 +6,429 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>934</width>
-    <height>700</height>
+    <width>1010</width>
+    <height>768</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1010</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1500</width>
+    <height>1000</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>人工の智能标注（单文档标注版）3</string>
+   <string>裁判文书标注平台（单文档版）3</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTextBrowser" name="textBrowser_1">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>60</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>490</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>读取文件</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_3">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>140</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_2">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>100</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_4">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>180</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_5">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>220</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_6">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>260</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_7">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>300</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_8">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>340</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_9">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>380</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_10">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>420</y>
-      <width>491</width>
-      <height>41</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_11">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>60</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_12">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>100</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_13">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>140</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_14">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>180</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_15">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>220</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_16">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>260</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_17">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>300</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_18">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>340</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_19">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>380</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_20">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>420</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_21">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>520</y>
-      <width>241</width>
-      <height>81</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>500</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>信息提示栏：</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_1">
-    <property name="geometry">
-     <rect>
-      <x>860</x>
-      <y>600</y>
-      <width>41</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>清空</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n1">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>60</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>100</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n3">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>140</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n4">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>180</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n5">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>220</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n6">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>260</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n7">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>300</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n8">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>340</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n9">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>380</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="n10">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>420</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_page_next">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>490</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>下一页</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_page_before">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>490</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>上一页</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_1">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>70</y>
-      <width>41</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_2">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>110</y>
-      <width>31</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_3">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>150</y>
-      <width>31</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_4">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>190</y>
-      <width>21</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_5">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>230</y>
-      <width>31</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_6">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>270</y>
-      <width>31</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_7">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>310</y>
-      <width>21</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_8">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>350</y>
-      <width>21</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_9">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>390</y>
-      <width>21</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_10">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>430</y>
-      <width>21</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>130</y>
-      <width>131</width>
-      <height>271</height>
+      <x>817</x>
+      <y>140</y>
+      <width>161</width>
+      <height>312</height>
      </rect>
     </property>
     <property name="title">
      <string>标签</string>
     </property>
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>判决结果</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>案号</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>司法鉴定</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>140</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>影响判决的因素</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>170</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>法律依据</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>被告人信息</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>110</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>案由</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>230</y>
-       <width>111</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>清除标签</string>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>案号</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>被告人信息</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="text">
+        <string>司法鉴定</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>案由</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>影响判决的因素</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_7">
+       <property name="text">
+        <string>法律依据</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_8">
+       <property name="text">
+        <string>判决结果</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_9">
+       <property name="text">
+        <string>清除标签</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>40</y>
-      <width>31</width>
-      <height>16</height>
+      <x>70</x>
+      <y>70</y>
+      <width>581</width>
+      <height>471</height>
      </rect>
     </property>
-    <property name="text">
-     <string>序号</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_1"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_2"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_3"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_4"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_5"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_6"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_7"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_8"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_9"/>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_10"/>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>40</y>
-      <width>31</width>
-      <height>16</height>
+      <x>20</x>
+      <y>70</y>
+      <width>41</width>
+      <height>471</height>
      </rect>
     </property>
-    <property name="text">
-     <string>原文</string>
-    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QTextBrowser" name="n1"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTextBrowser" name="n2"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QTextBrowser" name="n3"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QTextBrowser" name="n4"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QTextBrowser" name="n5"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QTextBrowser" name="n6"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QTextBrowser" name="n7"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QTextBrowser" name="n8"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QTextBrowser" name="n9"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QTextBrowser" name="n10"/>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>40</y>
-      <width>31</width>
-      <height>16</height>
+      <x>660</x>
+      <y>70</y>
+      <width>151</width>
+      <height>471</height>
      </rect>
     </property>
-    <property name="text">
-     <string>标签</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QTextBrowser" name="textBrowser_11"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="checkBox_1">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTextBrowser" name="textBrowser_12"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="checkBox_2">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QTextBrowser" name="textBrowser_13"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="checkBox_3">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QTextBrowser" name="textBrowser_14"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="checkBox_4">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QTextBrowser" name="textBrowser_15"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QCheckBox" name="checkBox_5">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QTextBrowser" name="textBrowser_16"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QCheckBox" name="checkBox_6">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QTextBrowser" name="textBrowser_17"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QCheckBox" name="checkBox_7">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QTextBrowser" name="textBrowser_18"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QCheckBox" name="checkBox_8">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QTextBrowser" name="textBrowser_19"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QCheckBox" name="checkBox_9">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QTextBrowser" name="textBrowser_20"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QCheckBox" name="checkBox_10">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>40</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>复选</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="filter_path">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
+      <x>300</x>
       <y>550</y>
-      <width>341</width>
-      <height>51</height>
+      <width>495</width>
+      <height>30</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>读取文件</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_page_before">
+       <property name="text">
+        <string>上一页</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_page_next">
+       <property name="text">
+        <string>下一页</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_amend">
+       <property name="text">
+        <string>模型修正</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_10">
+       <property name="text">
+        <string>保存</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>550</y>
+      <width>258</width>
+      <height>146</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>信息提示栏：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser_21"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_1">
+       <property name="text">
+        <string>清空</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>791</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string> 序号   原文</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>       标签          多选</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>530</y>
-      <width>81</width>
-      <height>16</height>
+      <x>500</x>
+      <y>600</y>
+      <width>291</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
-     <string>文件夹路径</string>
+     <string/>
     </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_10">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>490</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>保存</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_amend">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>490</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>模型修正</string>
+    <property name="pixmap">
+     <pixmap>E:/2021 夏/2021研电赛 西南赛区/表面工作/1.png</pixmap>
     </property>
    </widget>
   </widget>
@@ -743,7 +437,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>934</width>
+     <width>1010</width>
      <height>26</height>
     </rect>
    </property>

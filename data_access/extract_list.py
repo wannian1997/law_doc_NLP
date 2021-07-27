@@ -175,10 +175,10 @@ def list_output(file_path):
         doc2docx_1(file_path)
         file_path = file_path + 'x'
     # 设置引用文件路径（因为后期可能要更新相应信息，所以采用此种方式更方便一些）
-    anyoutxt = 'D:/projects_pycharm/lawdocs2excel/data_access/data/anyou.txt'
-    leixingtxt = 'D:/projects_pycharm/lawdocs2excel/data_access/data/chengxu.txt'
-    papertypetxt = 'D:/projects_pycharm/lawdocs2excel/data_access/data/paper_type.txt'
-    casetypetxt = 'D:/projects_pycharm/lawdocs2excel/data_access/data/case_type.txt'
+    anyoutxt = 'D:/projects_pycharm/LawProcess/data_access/data/anyou.txt'
+    leixingtxt = 'D:/projects_pycharm/LawProcess/data_access/data/chengxu.txt'
+    papertypetxt = 'D:/projects_pycharm/LawProcess/data_access/data/paper_type.txt'
+    casetypetxt = 'D:/projects_pycharm/LawProcess/data_access/data/case_type.txt'
 
     (casename, anyou, chengxu, papertype0, casetype0) = \
         case_name(file_path, anyoutxt, leixingtxt, papertypetxt, casetypetxt)
