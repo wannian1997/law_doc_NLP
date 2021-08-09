@@ -71,7 +71,7 @@ def docx2txt(doc_path):
 
 # 读取docx文档,并将每段存入一个列表
 def read_docx(path_r):
-    """2021年6月23日，兼容doc格式"""
+    """2021年7月29日，兼容txt格式"""
     path = path_r
     if not os.path.exists(path):  # 判断文件是否存在
         print('发生错误：\n'+path+'文件不存在！')
@@ -79,6 +79,18 @@ def read_docx(path_r):
     # 解析文件路径
     remove_flag = False
     dir, file_name = os.path.split(path)
+
+    if os.path.splitext(file_name)[1] == ".txt":  # 直接读取
+        with open("C:\\Users\\songwannian\\Desktop\\文书全篇文字划分.txt", "r") as f:  # 打开文件
+            data = f.readlines()  # 读取文件
+        paras_temp = []  # 用来存储段落
+        for p in data:
+            p = p.replace(" ", "")
+            p1 = p.replace("\u3000\u3000", "")  # 去除空格,并以字符串的形式存储在列表中
+            if len(p1) > 1:  # 去除空行（有的空行为一个空格）
+                paras_temp.append(p1)
+        return paras_temp
+
     if os.path.splitext(file_name)[1] == ".doc":  # 需要先转换
         doc2docx_1(path)  # 生成同文件目录下docx文件
         path = path + 'x'  # 更新路径
@@ -89,7 +101,6 @@ def read_docx(path_r):
         p1 = p.text.replace(" ", "")  # 去除空格,并以字符串的形式存储在列表中
         if len(p1) > 1:   # 去除空行（有的空行为一个空格）
             paras_temp.append(p1)
-    print(f"{path_r} →→→ 文件读取成功!")
     if remove_flag:
         os.remove(path)  # 将docx文件删除
     return paras_temp
@@ -176,11 +187,13 @@ def paras2sentences(paras):
 def paras2sentences_ltp(paras):
     sentences = []
     for pa in paras:
+        if pa[0] == '（' and pa[-1] == '）':
+            continue
         sents = SentenceSplitter.split(pa)  # 分句
-        if len(sents[-1]) < 2:  # 过滤
+        print(sents[-1])
+        if len(sents[-1]) < 2:  # 过滤只有一个字符的内容
             sents[-2] = sents[-2] + sents[-1]
             del sents[-1]
-
         for se in sents:
             sentences.append(se)
         # index = []
@@ -225,6 +238,9 @@ def paras2sentences_ltp(paras):
 def list2txt(list, path):
     file = open(path, 'w', encoding="utf-8")
     for l in list:
+        l = str(l)  # 强制转换
+        if l[-1] != '\n':
+            l = l + '\n'
         file.write(l)
     file.close()
     print(f"{path}文件存储成功")

@@ -1,7 +1,7 @@
 import os
 import re
 import random
-from TPaper import *
+from Paper import *
 from process_doc import paras2sentences_ltp, list2txt, read_docx
 
 
@@ -14,7 +14,7 @@ def papers_check(filepath):
         if type_t != '.docx':  # 过滤文件类型
             continue
         path_temp = os.path.join(filepath, pl)
-        paper = TPaper(path_temp)
+        paper = Paper(path_temp)
         # 存储指定范围段落至一个文件
         n = 0
         while n <= 7:

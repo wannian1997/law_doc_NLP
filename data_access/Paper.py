@@ -3,7 +3,7 @@
 from data_access.process_doc import paras2sentences_ltp, list2txt, read_docx
 
 
-class TPaper:
+class Paper:
     """打开docx文件，并进行段落标注"""
 
     def __init__(self, docx_path):
@@ -31,6 +31,9 @@ class TPaper:
         pn = len(self.paras)  # 总段落数（已经去除了空行）
         pi = len(self.dict_label)  # 动态索引（正常为5）
         # 判断paras[4]是否为公诉机关信息
+        if len(self.paras) < 5:
+            print('发生错误：\n' + '文件格式不符合规范！')
+            exit(0)
         if '公诉机关' in self.paras[4]:  # 先按顺序提取
             save_t = [4]
             self.part_people_index0 = 5
@@ -224,6 +227,7 @@ class TPaper:
             elif i == 'label07':
                 list_tt = []
                 t_list = []
+                index_gaozhiyiwu0 = 0
                 for ki in k:
                     list_tt.append(self.paras[ki])
                 list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
@@ -262,8 +266,9 @@ class TPaper:
                         tl_flag = 0
 
                 # 告知义务标签处理
-                if sentences[index_gaozhiyiwu0+1][1][0] == '7':
-                    sentences[index_gaozhiyiwu0 + 1] = [sentences[index_gaozhiyiwu0+1][0], '7T']
+                if index_gaozhiyiwu0 + 1 <= len(sentences) - 1:
+                    if sentences[index_gaozhiyiwu0 + 1][1][0] == '7':
+                        sentences[index_gaozhiyiwu0 + 1] = [sentences[index_gaozhiyiwu0+1][0], '7T']
 
             elif i == 'label08':
                 list_tt = []
@@ -372,8 +377,9 @@ class TPaper:
 
 if __name__ == '__main__':
     # 单文档标注测试
-    path1 = r'E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)\docx\2019湘1126刑初250号被告人徐志军非法采伐国家重点保护植物一审刑事判决书.docx'
-    paper = TPaper(path1)
+    path1 = r'E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)\docx\2019皖1524刑初117号熊希金非法采伐国家重点保护植物案判决书.docx'
+    path1 = r'C:\Users\songwannian\Desktop\文书全篇文字划分.txt'
+    paper = Paper(path1)
     dic = paper.dict_label
     for i, k in dic.items():
         print(f"{i}:{k}")
