@@ -190,7 +190,6 @@ def paras2sentences_ltp(paras):
         if pa[0] == '（' and pa[-1] == '）':
             continue
         sents = SentenceSplitter.split(pa)  # 分句
-        print(sents[-1])
         if len(sents[-1]) < 2:  # 过滤只有一个字符的内容
             sents[-2] = sents[-2] + sents[-1]
             del sents[-1]
