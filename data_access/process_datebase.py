@@ -4,6 +4,7 @@ import random
 from Paper import *
 from process_doc import paras2sentences_ltp, list2txt, read_docx
 
+
 def papers_check_0(filepath,tag0=3,tag1=0):
     """批量文件处理，并将tag0转换为tag1"""
     path_list = os.listdir(filepath)
@@ -335,7 +336,7 @@ def entropy():
     f.close()  # 关闭文件
 
     sentences = []
-    nn = min(len(list0),len(list1),len(list2),len(list3),len(list4),len(list5),len(list6)) - 1  # 设置数据量
+    nn = min(len(list0), len(list1), len(list2), len(list3), len(list4), len(list5), len(list6)) - 1  # 设置数据量
     nn = 461
     nnt = nn * 7
     nk = 1
@@ -386,6 +387,7 @@ def entropy():
                 nk -= 1
             n6 += 1
     list2txt(sentences,r'C:\Users\songwannian\Desktop\T.txt')
+
 
 def entropy_1():
     """处理数据集,将桌面1256文件夹里面的数据换成你处理过的数据集"""
