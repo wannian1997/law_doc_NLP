@@ -1,6 +1,6 @@
 """面向docx，单个文件等级地处理,extract_label重构
 2021年7月17日 重新设置标签并改变数据结构"""
-from data_access.process_doc import paras2sentences_ltp, list2txt, read_docx
+from Data_Access.process_doc import paras2sentences_ltp, list2txt, read_docx
 import re
 
 
@@ -131,8 +131,8 @@ class Paper:
                         index_t5 = pi
                 pi += 1
             # 解析并储存,存储策略：未提取的不存储，重复的另行解决
-            print(f'审判程序1\t指控2\t辩护意见3\t审理查明4\t证据5\n'
-                  f'{index_t1}\t\t{index_t2}\t\t{index_t3}\t\t{index_t4}\t\t{index_t5}')  # check
+            # print(f'审判程序1\t指控2\t辩护意见3\t审理查明4\t证据5\n'
+            #       f'{index_t1}\t\t{index_t2}\t\t{index_t3}\t\t{index_t4}\t\t{index_t5}')  # check
 
             # 检查index是否存在重复
             list_index = [(1, index_t1), (2, index_t2), (3, index_t3), (4, index_t4), (5, index_t5)]
@@ -238,8 +238,7 @@ class Paper:
             def takeSecond(elem):
                 return elem[1]
             index_list.sort(key=takeSecond)
-
-            print('index_same:\t', index_same1, index_same2, index_same3, index_same4, index_same5)
+            # print('index_same:\t', index_same1, index_same2, index_same3, index_same4, index_same5)
 
             # 索引重复统计实现, 仅影响显示，并不影响处理  start
             list_index_sa = []  # 统计列表
@@ -253,11 +252,9 @@ class Paper:
                 list_index_sa.append(['4' + index_same4[0], 1])
             if index_same5:
                 list_index_sa.append(['5' + index_same5[0], 1])
-            print('list_index_sa:', list_index_sa)
             self.list_index_sa = list_index_sa  # 格式:[str,str,int]  eg:['1', '3', 1]  依次为标签1,标签2,重复次数  End
 
             # 存入dic
-            print('list_list:\t', index_list)
             len_index_list = len(index_list)
             it = 0
             while it < len_index_list:
@@ -601,20 +598,13 @@ class Paper:
 
 if __name__ == '__main__':
     # 单文档标注测试
-    path1 = r'E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)\docx\2019湘1126刑初83号被告人欧运德滥伐林木一案刑事判决书.docx'
+    path1 = r'E:\docx\暨附带民非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
     paper = Paper(path1)
-    dic = paper.dict_label
-    for i, k in dic.items():
-        print(i, '\t', k)
-    for i, k in dic.items():
-        if i[-2] != '6':
-            continue
-        print(f"\n{i}:")
-        for ki in k:
-            print(paper.paras[ki])
+    for key, value in paper.dict_label.items():
+        print(key, value)
+
+    for p in paper.paras:
+        print(p)
+
     for s in paper.sentences:
         print(s)
-
-    # for s in paper.sentences:
-    #     if s[1][0] == '6':
-    #         print(s)

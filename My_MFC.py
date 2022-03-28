@@ -7,8 +7,8 @@ import time
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtGui import QColor
 # 导入
-from data_access.Paper import Paper
-from Demo import load_model, sentence2tag
+from Data_Access.Paper import Paper
+from Demo_Filter.Demo import load_model, sentence2tag
 from MFC import *
 
 
