@@ -1,3 +1,5 @@
+import os
+
 from Data_Access.Paper import Paper
 
 
@@ -21,20 +23,31 @@ class PaperInfo(Paper):
         self.extract_paper_info()
 
     def extract_paper_info(self):
-        # self.case_ID = self.paras[self.dict_label['label30']]
+        self.case_ID = self.paras[self.dict_label['label30'][0]]
+        self.cause_of_action = self.cause_of_action_func()
         pass
+
+    def cause_of_action_func(self):
+        """提取案由"""
+        # 处理文件名，去掉路径信息
+        dir, file_name = os.path.split(self.case_name)
+        self.case_name = file_name.split('.')[0]
+
+        # 通过文本匹配算法进行案由抽取
+        return self.case_name
+
 
 def temp(path):
     # 单文档标注测试
     paper = PaperInfo(path)
-    for key, value in paper.dict_label.items():
-        print(key, value)
-
-    for p in paper.paras:
-        print(p)
-
-    for s in paper.sentences:
-        print(s)
+    # for key, value in paper.dict_label.items():
+    #     print(key, value)
+    #
+    # for p in paper.paras:
+    #     print(p)
+    #
+    # for s in paper.sentences:
+    #     print(s)
 
 
 if __name__ == '__main__':

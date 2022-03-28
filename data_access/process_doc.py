@@ -70,9 +70,8 @@ def docx2txt(doc_path):
 
 
 # 读取docx文档,并将每段存入一个列表
-def read_docx(path_r):
+def read_docx(path):
     """2021年7月29日，兼容txt格式"""
-    path = path_r
     if not os.path.exists(path):  # 判断文件是否存在
         print('发生错误：\n'+path+'文件不存在！')
         exit(0)  # 无错误结束程序
@@ -81,7 +80,7 @@ def read_docx(path_r):
     dir, file_name = os.path.split(path)
 
     if os.path.splitext(file_name)[1] == ".txt":  # 直接读取
-        with open("C:\\Users\\songwannian\\Desktop\\文书全篇文字划分.txt", "r") as f:  # 打开文件
+        with open(path, "r") as f:  # 打开文件
             data = f.readlines()  # 读取文件
         paras_temp = []  # 用来存储段落
         for p in data:
