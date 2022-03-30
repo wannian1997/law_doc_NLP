@@ -24,6 +24,11 @@ class Paper:
         self.paras_label()  # 标注（并存入标注字典）
         self.sentences = self.sentences_tag()  # 句子标注（格式：列表）
 
+        # 删除多余内置变量
+        del self.accuse_index0
+        del self.part_people_index0
+        del self.part_people_index1
+
     def paras_label30(self):
         """标注标签00-30"""
         self.paras.insert(0, self.case_name)
@@ -130,9 +135,6 @@ class Paper:
                     if not index_t5:  # 仅获取一次
                         index_t5 = pi
                 pi += 1
-            # 解析并储存,存储策略：未提取的不存储，重复的另行解决
-            # print(f'审判程序1\t指控2\t辩护意见3\t审理查明4\t证据5\n'
-            #       f'{index_t1}\t\t{index_t2}\t\t{index_t3}\t\t{index_t4}\t\t{index_t5}')  # check
 
             # 检查index是否存在重复
             list_index = [(1, index_t1), (2, index_t2), (3, index_t3), (4, index_t4), (5, index_t5)]
@@ -234,6 +236,7 @@ class Paper:
                 index_list.append(['4', index_t4])
             if index_t5:
                 index_list.append(['5', index_t5])
+
             # 按索引从小到大排序，解决部分bug
             def takeSecond(elem):
                 return elem[1]
@@ -254,6 +257,15 @@ class Paper:
                 list_index_sa.append(['5' + index_same5[0], 1])
             self.list_index_sa = list_index_sa  # 格式:[str,str,int]  eg:['1', '3', 1]  依次为标签1,标签2,重复次数  End
 
+            # 检查指控段第一段是否在列表中
+            index_temp0 = self.dict_label['label50'][-1]
+            index_temp1 = index_list[0][1]
+            if index_temp1-index_temp0 == 1:
+                return
+            temp_list = []
+            for i in range(index_temp0+1,index_temp1):
+                temp_list.append(i)
+            self.dict_label['label60'] = temp_list
             # 存入dic
             len_index_list = len(index_list)
             it = 0
@@ -507,94 +519,6 @@ class Paper:
                     sentences.append([lt, '90'])
         return sentences
 
-    def sentence_tag_s(self, s):
-        """抽取特定一个标签的段落进行存储，且只存储第一句"""
-        sentences = []
-        for i, k in self.dict_label.items():  # i是标签，k是字符串
-            if s == 0:
-                if i == 'label00':
-                    for ki in k:
-                        sentences.append([self.paras[ki], '0'])
-            elif s == 1:
-                if i == 'label10':
-                    for ki in k:
-                        sentences.append([self.paras[ki], '1'])
-            elif s == 2:
-                if i == 'label20':
-                    for ki in k:
-                        sentences.append([self.paras[ki], '2'])
-            elif s == 3:
-                if i == 'label30':
-                    for ki in k:
-                        sentences.append([self.paras[ki], '3'])
-            elif s == 4:
-                if i == 'label40':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for lt in list_tt:
-                        sentences.append([lt, '4'])
-            elif s == 5:
-                if i == 'label50':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for_flag = True  # 只存储第一句
-                    for lt in list_tt:
-                        while for_flag:
-                            sentences.append([lt, '5'])
-                            for_flag = False
-            elif s == 6:
-                if i == 'label60':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for_flag = True  # 只存储第一句
-                    for lt in list_tt:
-                        while for_flag:
-                            sentences.append([lt, '6'])
-                            for_flag = False
-            elif s == 7:
-                if i == 'label70':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for_flag = True  # 只存储第一句
-                    for lt in list_tt:
-                        while for_flag:
-                            sentences.append([lt, '7'])
-                            for_flag = False
-            elif s == 8:
-                if i == 'label80':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for_flag = True  # 只存储第一句
-                    for lt in list_tt:
-                        while for_flag:
-                            sentences.append([lt, '8'])
-                            for_flag = False
-            elif s == 9:
-                if i == 'label90':
-                    list_tt = []
-                    for ki in k:
-                        list_tt.append(self.paras[ki])
-                    list_tt = paras2sentences_ltp(list_tt)  # 句子元素列表
-                    for_flag = True  # 只存储第一句
-                    for lt in list_tt:
-                        while for_flag:
-                            sentences.append([lt, '9'])
-                            for_flag = False
-            else:
-                print('请输入正确格式的标签，例如“0”。')
-        sentence = sentences[0]
-        return sentence
-
 
 if __name__ == '__main__':
     # 单文档标注测试
@@ -603,8 +527,8 @@ if __name__ == '__main__':
     for key, value in paper.dict_label.items():
         print(key, value)
 
-    for p in paper.paras:
-        print(p)
-
-    for s in paper.sentences:
-        print(s)
+    # for p in paper.paras:
+    #     print(p)
+    #
+    # for s in paper.sentences:
+    #     print(s)
