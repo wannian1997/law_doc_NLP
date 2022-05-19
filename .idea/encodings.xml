@@ -2,11 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$USER_HOME$/Desktop/test.json" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/data_access/data/anyou.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/data_access/data/case_type.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/data_access/data/chengxu.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/data_access/data/paper_type.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/data_access/file_name.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/data_access/new_json.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Access/data/anyou.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Access/data/case_type.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Data_Access/data/chengxu.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Access/data/paper_type.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Access/file_name.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Access/new_json.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data_Base/test.json" charset="GBK" />
   </component>
 </project>

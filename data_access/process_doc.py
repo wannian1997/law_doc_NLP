@@ -94,6 +94,7 @@ def read_docx(path):
         doc2docx_1(path)  # 生成同文件目录下docx文件
         path = path + 'x'  # 更新路径
         remove_flag = True
+
     doc = docx.Document(path)
     paras_temp = []  # 用来存储段落
     for p in doc.paragraphs:
@@ -280,13 +281,13 @@ if __name__ == "__main__":
     folder_path0 = "E:\\NLP\\02 Database\\Document\\非法采伐、毁坏国家重点保护植物罪(新)"  # doc文件所在文件夹路径
 
     # 创建存储docx文件的文件夹(若存在则不创建）
-    # docx_path = os.path.join(folder_path0, 'docx')
+    # docx_path = os.docxPath.join(folder_path0, 'docx')
     # create_folder(docx_path)
     # 创建存储json文件的文件夹
-    # json_path = os.path.join(folder_path0, 'json')
+    # json_path = os.docxPath.join(folder_path0, 'json')
     # create_folder(json_path)
     # 创建存储txt文件的文件夹
-    # txt_path = os.path.join(folder_path0, 'txt')
+    # txt_path = os.docxPath.join(folder_path0, 'txt')
     # create_folder(txt_path)
     # # 显示转换用时
     time_start = time.time()
@@ -298,7 +299,7 @@ if __name__ == "__main__":
     # for ui in u_list:
     #     print(ui)
     # 删除docx中无效文件
-    # remove_useless(u_list, os.path.join(docx_path)
+    # remove_useless(u_list, os.docxPath.join(docx_path)
     # 查看乱码文件
     # m_list = messy_code_list(docx_path)
     # nk = 0
@@ -307,7 +308,7 @@ if __name__ == "__main__":
     #     print(ui)
     # print(nk)
     # # 删除无用文件
-    # remove_useless(m_list, os.path.join(docx_path))
+    # remove_useless(m_list, os.docxPath.join(docx_path))
 
     time_end = time.time()
     print('\ntotally time cost:', time_end - time_start)  # 用时

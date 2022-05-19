@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
                     file.Close()
             elif self.dir0.endswith('.doc'):
                 text1 = []
-                # path_list = os.path.basename(self.dir0)
+                # path_list = os.docxPath.basename(self.dir0)
                 # path_list = path_list[:-4]
                 word = wc.Dispatch('Word.Application')
                 doc = word.Documents.Open(self.dir0)
@@ -252,10 +252,10 @@ class Ui_MainWindow(object):
             save_path = path + os.path.basename(self.dir0).replace('doc', 'txt')
         elif self.dir0.endswith('.docx'):
             save_path = path + os.path.basename(self.dir0).replace('docx', 'txt')
-        # save_path = path + os.path.basename(self.dir0).replace('doc', 'txt')
+        # save_path = docxPath + os.docxPath.basename(self.dir0).replace('doc', 'txt')
         elif self.dir0.endswith('.txt'):
             save_path = path + os.path.basename(self.dir0)
-        # save_path = path + os.path.basename(self.dir0).replace('doc', 'txt')
+        # save_path = docxPath + os.docxPath.basename(self.dir0).replace('doc', 'txt')
         print(save_path)
         # 保存含有标签的句子
         for index_list in self.save_text_line:

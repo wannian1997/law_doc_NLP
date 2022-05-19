@@ -1,7 +1,10 @@
+# coding:utf-8
 """面向docx，单个文件等级地处理,extract_label重构
 2021年7月17日 重新设置标签并改变数据结构"""
 from Data_Access.process_doc import paras2sentences_ltp, list2txt, read_docx
-import re
+
+import re, os
+from xml.dom import minidom
 
 
 class Paper:
@@ -258,14 +261,15 @@ class Paper:
             self.list_index_sa = list_index_sa  # 格式:[str,str,int]  eg:['1', '3', 1]  依次为标签1,标签2,重复次数  End
 
             # 检查指控段第一段是否在列表中
-            index_temp0 = self.dict_label['label50'][-1]
-            index_temp1 = index_list[0][1]
-            if index_temp1-index_temp0 == 1:
-                return
-            temp_list = []
-            for i in range(index_temp0+1,index_temp1):
-                temp_list.append(i)
-            self.dict_label['label60'] = temp_list
+            # index_temp0 = self.dict_label['label50'][-1]
+            # index_temp1 = index_list[0][1]
+            # if index_temp1-index_temp0 == 1:
+            #     return
+            # temp_list = []
+            # for i in range(index_temp0+1,index_temp1):
+            #     temp_list.append(i)
+            # self.dict_label['label60'] = temp_list
+
             # 存入dic
             len_index_list = len(index_list)
             it = 0
@@ -520,15 +524,55 @@ class Paper:
         return sentences
 
 
-if __name__ == '__main__':
-    # 单文档标注测试
-    path1 = r'E:\docx\暨附带民非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
-    paper = Paper(path1)
-    for key, value in paper.dict_label.items():
-        print(key, value)
+# 写入xml文档的方法
+def create_xml_test(docxPath, saveFolder):
+    xml = minidom.Document()
+    paper = xml.createElement('paper')
+    xml.appendChild(paper)
 
-    # for p in paper.paras:
-    #     print(p)
-    #
-    # for s in paper.sentences:
-    #     print(s)
+    docx = Paper(docxPath)
+    for key, value in docx.dict_label.items():
+        # 添加段落块
+        paras = xml.createElement('paras')
+        paras.setAttribute('label', key)
+        paper.appendChild(paras)
+        for index in value:
+            # 添加段
+            para = xml.createElement('para')
+            # 添加文本信息
+            status_text = xml.createTextNode(docx.paras[index])
+            para.appendChild(status_text)
+            para.setAttribute('index', str(index))
+            paras.appendChild(para)
+
+    # 解析文件名
+    saveFilename = os.path.basename(docxPath).split('.')[0]
+    f = open(saveFolder + "\\" + saveFilename + ".xml", 'w', encoding='utf-8')  # 编码格式
+    t = saveFolder + saveFilename + ".xml"
+    f.write(xml.toprettyxml())
+    f.close()
+
+
+class Test:
+    """测试类"""
+    def exmple01(self):
+        # 单文档标注测试
+        path1 = r'E:\docx\26被告人董连元非法采伐国家重点保护植物一审刑事判决书.docx'
+        paper = Paper(path1)
+        for key, value in paper.dict_label.items():
+            print(key, value)
+        # for p in paper.paras:
+        #     print(p)
+        #
+        # for s in paper.sentences:
+        #     print(s)
+
+
+def main():
+    docxPath = r'E:\docx\26被告人董连元非法采伐国家重点保护植物一审刑事判决书.docx'
+    folderPath = r"D:\projects_pycharm\LawProcess\Data_Base\xml"
+    create_xml_test(docxPath, folderPath)
+
+
+if __name__ == '__main__':
+    main()
