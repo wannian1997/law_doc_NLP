@@ -4,6 +4,8 @@ import random
 from Paper import *
 from process_doc import paras2sentences_ltp, list2txt, read_docx
 
+"""测试类"""
+
 
 def papers_check(filepath):
     """批量文件句子人工混合标注纠错"""
@@ -83,5 +85,3 @@ def papers_check6(filepath):
 
 if __name__ == '__main__':
     papers_check6(r'E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)\docx')
-
-

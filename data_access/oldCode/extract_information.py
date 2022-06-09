@@ -1,7 +1,7 @@
 """批量处理"""
 import os
 import json
-from extract_list import list_output
+from Data_Access.oldCode.extract_list import list_output
 
 
 # 传入文件路径、案由文件路径（txt文件编码类型为ANSI），获取案件名（文件名）、案由、案件类型、文书类型
@@ -123,7 +123,7 @@ def dict2json(info_dict, casename, savefile_load):
 
 if __name__ == "__main__":
     # 文件路径
-    folder_path0 = r"E:\NLP\02Database\Document\非法采伐、毁坏国家重点保护植物罪(新)"  # doc文件所在文件夹路径
+    folder_path0 = r'E:\docx\26被告人董连元非法采伐国家重点保护植物一审刑事判决书.docx'  # doc文件所在文件夹路径
     docx_path = os.path.join(folder_path0, 'docx')  # docx文件的文件夹
     json_path = os.path.join(folder_path0, 'json')  # json文件的文件夹
     docx_name_list = os.listdir(docx_path)  # 读取docx文件夹下的文件名列表（带后缀）

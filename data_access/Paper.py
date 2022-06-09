@@ -34,6 +34,7 @@ class Paper:
 
     def paras_label30(self):
         """标注标签00-30"""
+        self.case_name = self.case_name.split('\\')[-1]
         self.paras.insert(0, self.case_name)
         self.dict_label = {'label00': [0], 'label10': [1],
                            'label20': [2], 'label30': [3]}
@@ -91,7 +92,7 @@ class Paper:
                 if len(p) <= 12:
                     judge_day_index = self.paras.index(p)
             # 相关法律条文起始段索引
-            if '相关法律' in p or '法律条文' in p:
+            if '相关法律' in p or '法律条文' in p or '相关法条' in p or ('附' in p and '法律' in p):
                 law_index0 = self.paras.index(p)
             if '审判员' in p:
                 if adjudicatory_index0 == 0:
@@ -418,6 +419,7 @@ class Paper:
             while pi < len(self.paras):
                 list_t.append(pi)
                 pi += 1
+            print(list_t)
             self.dict_label['label90'] = list_t
 
     def sentences_tag(self):
@@ -531,6 +533,7 @@ def create_xml_test(docxPath, saveFolder):
     xml.appendChild(paper)
 
     docx = Paper(docxPath)
+    print(docx.dict_label)
     for key, value in docx.dict_label.items():
         # 添加段落块
         paras = xml.createElement('paras')
@@ -548,30 +551,36 @@ def create_xml_test(docxPath, saveFolder):
     # 解析文件名
     saveFilename = os.path.basename(docxPath).split('.')[0]
     f = open(saveFolder + "\\" + saveFilename + ".xml", 'w', encoding='utf-8')  # 编码格式
-    t = saveFolder + saveFilename + ".xml"
     f.write(xml.toprettyxml())
     f.close()
+    print(f"XML文件：《{saveFilename}.xml》成功生成！")
 
 
-class Test:
-    """测试类"""
-    def exmple01(self):
-        # 单文档标注测试
-        path1 = r'E:\docx\26被告人董连元非法采伐国家重点保护植物一审刑事判决书.docx'
-        paper = Paper(path1)
-        for key, value in paper.dict_label.items():
-            print(key, value)
-        # for p in paper.paras:
-        #     print(p)
-        #
-        # for s in paper.sentences:
-        #     print(s)
+def toTxt(docxPath, saveFolder):
+    def list2txt(list, path):
+        file = open(path, 'w', encoding="utf-8")
+        for l in list:
+            l = str(l)  # 强制转换
+            if l[-1] != '\n':
+                l = l + '\n'
+            file.write(l)
+        file.close()
+        print(f"{path}文件存储成功")
+    paras = read_docx(docxPath)
+
+    # 解析文件名
+    saveFilename = os.path.basename(docxPath).split('.')[0]
+    saveFilename = saveFolder + "\\" + saveFilename + ".txt"
+    list2txt(paras, saveFilename)
+    print(f"txt成功生成！")
 
 
 def main():
-    docxPath = r'E:\docx\26被告人董连元非法采伐国家重点保护植物一审刑事判决书.docx'
+    # 生成xml文件测试
+    docxPath = r'E:\docx\82号黄晓娟非法采伐毁坏国家重点保护植物一审刑事判决书.docx'
     folderPath = r"D:\projects_pycharm\LawProcess\Data_Base\xml"
-    create_xml_test(docxPath, folderPath)
+    # create_xml_test(docxPath, folderPath)
+    toTxt(docxPath, folderPath)
 
 
 if __name__ == '__main__':

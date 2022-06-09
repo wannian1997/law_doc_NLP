@@ -245,6 +245,18 @@ def list2txt(list, path):
     print(f"{path}文件存储成功")
 
 
+# 将列表转换为字符串
+def list2str(list):
+    # 带回车
+    string = ''
+    for l in list:
+        l = str(l)  # 强制转换
+        if l[-1] != '\n':
+            l = l + '\n'
+        string += l
+    return string
+
+
 # 批量将docx文件批量转换为txt文件（按句子分开）
 def txt2(docx_path):
     file_list = os.listdir(docx_path)
@@ -312,3 +324,4 @@ if __name__ == "__main__":
 
     time_end = time.time()
     print('\ntotally time cost:', time_end - time_start)  # 用时
+
